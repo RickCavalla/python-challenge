@@ -18,6 +18,8 @@ def print_file(pList, pFilename):
 
 # define path to input data
 bank_csv = os.path.join("Resources","budget_data.csv")
+
+# define path to results file
 bank_output_txt = os.path.join(".", "bank_analysis.txt")
 
 # open input file
@@ -28,7 +30,9 @@ with open (bank_csv, newline="") as bank_csvfile:
     # grab header line
     bank_csvheader = next(bank_csvreader)
     
-    # store csv columns based on header column text
+    # store csv columns based on header column text.
+    # if we move around or add columns, column numbers could change,
+    # but column header should be constant
     date_index = bank_csvheader.index("Date")
     profit_index = bank_csvheader.index("Profit/Losses")
 
@@ -53,7 +57,7 @@ with open (bank_csv, newline="") as bank_csvfile:
         # increment counter for months of data
         bank_months += 1
 
-        # grab profit/loss on this road as a decimal
+        # grab profit/loss on this row as a decimal
         this_profit = float(bank_row[profit_index])
 
         # grab difference in profit compared to last month,
@@ -83,7 +87,7 @@ with open (bank_csv, newline="") as bank_csvfile:
         # so available for compare to next month
         last_profit = this_profit
 
-    # average profit swing is sum of profit swings, divided by swings
+    # average profit swing is sum of profit swings, divided by swings.
     # no swing defined for first month, 
     # thus total profit swings are one less than total months
     average_profit_delta = total_profit_delta / (bank_months - 1)
