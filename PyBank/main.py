@@ -2,10 +2,10 @@
 import os
 import csv
 
-bank_csv = os.path.join('Resources','budget_data.csv')
+bank_csv = os.path.join("Resources","budget_data.csv")
 
-with open (bank_csv, newline='') as bank_csvfile:
-    bank_csvreader = csv.reader(bank_csvfile, delimiter=',')
+with open (bank_csv, newline="") as bank_csvfile:
+    bank_csvreader = csv.reader(bank_csvfile, delimiter=",")
 
     bank_csvheader = next(bank_csvreader)
     
@@ -51,11 +51,13 @@ with open (bank_csv, newline='') as bank_csvfile:
 
     average_profit_delta = total_profit_delta / (bank_months - 1)
 
-    print(bank_months)
-    print(net_profit)
-    print(total_profit_delta)
-    print(average_profit_delta)
-    print(profit_max)
-    print(profit_max_date)
-    print(loss_max)
-    print(loss_max_date)
+    output_list = []
+    output_list.append("Financial Analysis")
+    output_list.append("------------------")
+    output_list.append(f"Total Months: {bank_months}")
+    output_list.append(f"Total: ${net_profit:.2f}")
+    output_list.append(f"Average Change: ${average_profit_delta:.2f}")
+    output_list.append(f"Greatest Increase in Profits: {profit_max_date} ${profit_max:.2f}")
+    output_list.append(f"Greatest Decrease in Profits: {loss_max_date} ${loss_max:.2f}")
+    
+    print(*output_list, sep="\n")
