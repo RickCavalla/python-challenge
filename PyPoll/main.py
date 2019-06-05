@@ -60,7 +60,29 @@ with open (poll_csv, newline="") as poll_csvfile:
             winner = key
 
     for key in poll_dict_simple:
-        vote_percentage = poll_dict_simple[key] / total_votes
+        vote_percentage = (poll_dict_simple[key] / total_votes) * 100
         poll_dict_complex[key] = {"Votes": poll_dict_simple[key], "Percent": vote_percentage, "Winner": key == winner}
 
-    print(poll_dict_complex)
+    #print(poll_dict_complex)
+
+    output_list = []
+    output_list.append("Election Results")
+    divider_string = "-" * len(output_list[0]) * 2
+    output_list.append(divider_string)
+    output_string = f"Total Votes: {total_votes}"
+    output_list.append(output_string)
+    output_list.append(divider_string)
+
+    for key in poll_dict_complex.keys():
+        output_string = f"{key}: {poll_dict_complex[key]['Percent']:.3f}% ({poll_dict_complex[key]['Votes']})"
+        output_list.append(output_string)
+        if poll_dict_complex[key]["Winner"] == True:
+            winner_string = f"Winner: {key}"
+
+    output_list.append(divider_string)
+    output_list.append(winner_string)
+    output_list.append(divider_string)
+
+    print_stdout(output_list)
+
+    print_file(output_list, poll_output_txt)
